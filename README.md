@@ -16,8 +16,9 @@ Routes for each model, replace `$MODEL` with model name
 | /api/$MODEL          | GET       | Get all the $MODEL.          |
 | /api/$MODEL          | POST      | Create a $MODEL.             |
 | /api/$MODEL/:item_id | GET       | Get a single item.           |
-| /api/$MODEL/:item_id | PUT       | Update a item with new info. |
 | /api/$MODEL/:item_id | DELETE    | Delete a item.               |
+| *Bonus*              |           |                              |
+| /api/$MODEL/:item_id | PUT       | Update a item with new info. |
 
 ## Guide
 ### App (node)
