@@ -11,13 +11,13 @@ RESTful API with Node.js (Express 4) and MongoDB.
 ### Expected Behavior
 Routes for each model, replace `$MODEL` with model name
 
-Route				      |   HTTP Verb	    |  Description
-    ---                   |       ---       |       ---
-/api/$MODEL			      |   GET			|  Get all the $MODEL.
-/api/$MODEL			      |   POST		    |  Create a $MODEL.
-/api/$MODEL/:item_id	  |   GET			|  Get a single item.
-/api/$MODEL/:item_id	  |   PUT			|  Update a item with new info.
-/api/$MODEL/:item_id	  |   DELETE		|  Delete a bear.
+| Route                | HTTP Verb | Description                  |
+|:---------------------|:----------|:-----------------------------|
+| /api/$MODEL          | GET       | Get all the $MODEL.          |
+| /api/$MODEL          | POST      | Create a $MODEL.             |
+| /api/$MODEL/:item_id | GET       | Get a single item.           |
+| /api/$MODEL/:item_id | PUT       | Update a item with new info. |
+| /api/$MODEL/:item_id | DELETE    | Delete a bear.               |
 
 ## Guide
 ### App (node)
