@@ -1,24 +1,25 @@
-var express    	= require('express');        
-var app        	= express();               
+var express    	= require('express');
+var app        	= express();
 var bodyParser 	= require('body-parser');
 var db 			= require("./config/mongoose/database.js");
 var Post 		= require("./models/Post.js");
 var postRoutes = require('./routes/postRouters');
+var commentRoutes = require('./routes/commentRoutes');
+var pictureRoutes = require('./routes/pictureRoutes');
 
 var port = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-  
+
 
 app.get('/', function(req, res) {
-	
-    res.json({ message: 'hooray! welcome to our api!' });   
+    res.json({ message: 'hooray! welcome to our api!' });
 });
 
- postRoutes(app);
-
-
+postRoutes(app);
+commentRoutes(app);
+pictureRoutes(app);
 
 console.log('Magic happens on port ' + port);
 app.use(function(req, res) {
@@ -33,3 +34,4 @@ db.once('open', function(){
 
 
 app.listen(port);
+module.exports = app;
