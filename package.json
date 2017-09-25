@@ -4,7 +4,7 @@
   "description": "RESTful API with Node.js (Express 4) and MongoDB.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -12,13 +12,20 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">= 7.10.0"
+  },
   "bugs": {
     "url": "https://github.com/oliverwebr/dci-express-api/issues"
   },
   "homepage": "https://github.com/oliverwebr/dci-express-api#readme",
   "dependencies": {
-    "body-parser": "^1.18.1",
-    "express": "^4.15.4",
-    "mongoose": "4.10.8"
+    "body-parser": "^1.18.2",
+    "express": "^4.15.5",
+    "mongoose": "^4.11.13"
+  },
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "nodemon": "^1.12.1"
   }
 }
