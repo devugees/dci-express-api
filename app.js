@@ -1,29 +1,38 @@
-var express = require('express');
-var app = express();
-var mongoose = require('mongoose');
+var express    	= require('express');        
+var app        	= express();               
+var bodyParser 	= require('body-parser');
+var db 			= require("./config/mongoose/database.js");
+var Post 		= require("./models/Post.js");
+var postRoutes = require('./routes/postRouters');
+var commentRoutes = require('./routes/commentRoutes');
 var pictureRoutes = require('./routes/pictureRoutes');
-
-
-
-mongoose.connect('mongodb://instaMongo:express@ds143734.mlab.com:43734/insta_db', { useMongoClient: true, promiseLibrary: global.Promise });
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open',function() {
-  console.log('conected to database ');
-});
-
-
 
 var port = process.env.PORT || 8080;
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+  
 
-app.use(function(req, res, next) {
-    console.log('Something is happening.');
-    next();
+app.get('/', function(req, res) {
+    res.json({ message: 'hooray! welcome to our api!' });   
+});
+
+postRoutes(app);
+commentRoutes(app);
+pictureRoutes(app);
+
+console.log('Magic happens on port ' + port);
+app.use(function(req, res) {
+  res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
 
+db.on('error', console.error.bind(console, 'conection error:'));
+db.once('open', function(){
+	console.log('conection to database');
+});
 
-pictureRoutes(app)
-app.listen(port) ;
-console.log("Runnig on port  "+ port)
+
+app.listen(port);
+module.exports = app;
+
