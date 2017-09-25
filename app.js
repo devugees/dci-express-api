@@ -4,7 +4,8 @@ var bodyParser 	= require('body-parser');
 var db 			= require("./config/mongoose/database.js");
 var Post 		= require("./models/Post.js");
 var postRoutes = require('./routes/postRouters');
-const commentRoutes = require('./routes/commentRoutes');
+var commentRoutes = require('./routes/commentRoutes');
+var pictureRoutes = require('./routes/pictureRoutes');
 
 var port = process.env.PORT || 8080;
 
@@ -18,7 +19,7 @@ app.get('/', function(req, res) {
 
 postRoutes(app);
 commentRoutes(app);
-
+pictureRoutes(app);
 
 console.log('Magic happens on port ' + port);
 app.use(function(req, res) {
@@ -34,3 +35,4 @@ db.once('open', function(){
 
 app.listen(port);
 module.exports = app;
+
