@@ -4,7 +4,7 @@
   "description": "RESTful API with Node.js (Express 4) and MongoDB.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,6 @@
   "dependencies": {
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
-    "mongoose": "^4.11.12"
+    "mongoose": "4.10.8"
   }
 }
