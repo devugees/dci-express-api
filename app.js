@@ -4,6 +4,7 @@ var multer = require('multer');
 var path = require('path');
 var upload = multer({ dest:'./uploads'});
 var mongoose = require('mongoose');
+var PictureController = require('./controllers/PictureController')
 
 var mongoose =  require('mongoose');
 mongoose.connect('mongodb://instaMongo:express@ds143734.mlab.com:43734/insta_db', { useMongoClient: true, promiseLibrary: global.Promise });
@@ -12,7 +13,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open',function() {
   console.log('conected to database ');
 });
-    var Picture = mongoose.model('Picture', { path: String });
 
 var port = process.env.PORT || 8080;
 
@@ -29,25 +29,7 @@ router.get('/',function(req,res) {
   res.send({message:'welcome to out api'});
 });
 
-router.post('/pic', upload.single('profile'), function(req, res) {
-  if (req.file) {
-    console.log(typeof(req.file.path));
-
-    var profilePic = new Picture();
-
-    profilePic.path = req.file.path;
-    console.log(profilePic);
-    profilePic.save(function(err) {
-      if (err) {
-        console.log("the error is " + err);
-      }else {
-        res.end('Thanks for the file');
-      }
-    });
-
-  }
-  res.end('Missing file');
-});
+router.post('/pic', upload.single('profile'), PictureController.PictureController );
 
 
 app.use('/upload', router);
