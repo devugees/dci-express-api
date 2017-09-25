@@ -1,10 +1,13 @@
 const { catchErrors } = require('../errorHandler');
+const express = require('express');
+const router = express.Router();
 
-module.exports = function(app) {
-    const comment = require('../controllers/commentControllers')
+const comment = require('../controllers/commentControllers')
 
-    app.get('/api', catchErrors(comment.showComments))
+router.get('/api', catchErrors(comment.showComments))
 
-    app.post('/api/add', catchErrors(comment.addComment))
+router.post('/api/add', catchErrors(comment.addComment))
 
-}
+
+
+module.exports = router;
