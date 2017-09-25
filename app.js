@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
+var multer = require('multer');
+var path = require('path');
+var upload = multer({ dest:'./uploads'});
+var Picture    = require('./models/Picture');
 
-
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;
 
@@ -12,18 +12,28 @@ var port = process.env.PORT || 8080;
 // =========================================================
 var router = express.Router();
 
+router.use(function(req, res, next) {
+    console.log('Something is happening.');
+    next();
+});
+
 router.get('/',function(req,res) {
-  res.json({message:'Welcome to our api'});
+  res.send({message:'welcome to out api'});
+});
+
+router.post('/pic', upload.single('profile'), function(req, res) {
+  if (req.file) {
+    console.dir(req.file);
+    
+  }
+  res.end('Missing file');
 });
 
 
-
-
-
-app.use('/api',router);
+app.use('/upload', router);
 
 app.listen(port) ;
-console.log("runnig on port "+ port)
+console.log("runnig on port  "+ port)
 
 // SETUP MongoDB
 //======================================================================
@@ -34,6 +44,3 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open',function() {
   console.log('conected to database ');
 });
-
-
-var Picture    = require('./models/Picture');
