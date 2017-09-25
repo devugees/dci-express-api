@@ -2,7 +2,7 @@
   "name": "dci-express-api",
   "version": "1.0.0",
   "description": "RESTful API with Node.js (Express 4) and MongoDB.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },
@@ -20,17 +20,12 @@
   },
   "homepage": "https://github.com/oliverwebr/dci-express-api#readme",
   "dependencies": {
-<<<<<<< HEAD
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "mongoose": "4.10.8"
-=======
-    "body-parser": "^1.18.2",
-    "express": "^4.15.5",
-    "mongoose": "^4.11.13"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0",
->>>>>>> 475c91e8f0e5a189d641a7ad0ded072787cec3c7
+    "nodemon": "latest",
+    "dotenv": "^4.0.0"
   }
 }

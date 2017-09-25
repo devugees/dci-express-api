@@ -14,11 +14,7 @@ variables.env
 
 # production
 /build
-<<<<<<< HEAD
-=======
 /uploads
-
->>>>>>> 475c91e8f0e5a189d641a7ad0ded072787cec3c7
 
 # misc
 .DS_Store
