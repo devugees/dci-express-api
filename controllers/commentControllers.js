@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Comment = mongoose.model('Comment');
 
-exports.showComments = function(req, res) {
+exports.showComments = (req, res) => {
   res.json({ message: "its working"})
 }
 
