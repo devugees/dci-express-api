@@ -3,10 +3,13 @@ const { catchErrors } = require('../errorHandler');
 module.exports = (app) => {
   const comment = require('../controllers/commentControllers')
 
-  app.get('/api/comments', catchErrors(comment.showComments))
-  app.post('/api/comments', catchErrors(comment.addComment))
-  app.get('/api/comments/:item_id', catchErrors(comment.getComment))
-  app.delete('/api/comments/:item_id', catchErrors(comment.removeComment))
-  app.put('/api/comments/:item_id', catchErrors(comment.updateComment))
+  app.route('/api/comments')
+    .get(catchErrors(comment.showComments))
+    .post(catchErrors(comment.addComment));
+
+  app.route('/api/comments/:item_id')
+    .get(catchErrors(comment.getComment))
+    .delete(catchErrors(comment.removeComment))
+    .put(catchErrors(comment.updateComment));
 
 }
