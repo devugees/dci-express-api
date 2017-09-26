@@ -8,4 +8,5 @@ module.exports = (app) => {
   app.get('/api/comments/:item_id', catchErrors(comment.getComment))
   app.delete('/api/comments/:item_id', catchErrors(comment.removeComment))
   app.put('/api/comments/:item_id', catchErrors(comment.updateComment))
+
 }
