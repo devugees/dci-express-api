@@ -6,6 +6,7 @@ var Post 		    = require("./models/Post.js");
 var postRoutes      = require('./routes/postRouters');
 var commentRoutes   = require('./routes/commentRoutes');
 var pictureRoutes   = require('./routes/pictureRoutes');
+var userRoutes = require('./routes/userRouters');
 
 require('dotenv').config({ path: 'variables.env' });
 
@@ -38,6 +39,7 @@ app.get('/', function(req, res) {
 postRoutes(app);
 commentRoutes(app);
 pictureRoutes(app);
+userRoutes(app);
 
 // 404
 app.use(function(req, res) {

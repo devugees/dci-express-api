@@ -23,10 +23,10 @@
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "mongoose": "4.10.8",
+    "dotenv": "^4.0.0",
     "multer": "^1.3.0"
   },
   "devDependencies": {
-    "nodemon": "latest",
-    "dotenv": "^4.0.0"
+    "nodemon": "latest"
   }
 }
