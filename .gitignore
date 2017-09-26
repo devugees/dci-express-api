@@ -11,6 +11,7 @@ variables.env
 
 # testing
 /coverage
+/test-result
 
 # production
 /build
