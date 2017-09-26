@@ -6,6 +6,8 @@ module.exports = function(app) {
 
 
   app.route('/pictureUpload')
-    .post( upload.single('profile'), PictureController.uploadPicture );
-
+    .post( upload.single('profile'), PictureController.uploadPicture)
+    .get(PictureController.listAll);
+  app.route('/pictureUpload/:id')
+  .put(upload.single('update'),PictureController.updatePicture)
 }
