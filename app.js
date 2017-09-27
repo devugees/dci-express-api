@@ -10,8 +10,11 @@ var userRoutes = require('./routes/userRouters');
 
 require('dotenv').config({ path: 'variables.env' });
 
+
+const database = process.env.NODE_ENV === "test" ? process.env.TEST_DATABASE : process.env.DATABASE
+
 // Database Section
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(database, {
     useMongoClient: true,
     promiseLibary: global.Promise
 });
