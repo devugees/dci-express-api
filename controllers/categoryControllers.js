@@ -3,19 +3,22 @@
 var mongoose = require("mongoose"),
 	Category = mongoose.model("Category");
 
-
 exports.list_all_Categorys = function(req, res) {
 	Category.find({}, function(err, result) {
-		if (err)
-		 res.send(err);
+		if (err) res.send(err);
 		res.json(result);
 
 		console.log(result);
 	});
 };
-
-exports.create_a_Category = function(req, res) {
-	var new_Category = new Category(req.body);
+exports.read_a_Category = function(req, res) {
+	Category.findById(req.params.CategoryId, function(err, result) {
+		if (err) res.send(err);
+		res.json(result);
+	});
+};
+/*exports.create_a_Category = function(req, res) {
+	var new_Category = new Category({category:req.body.category});
 	new_Category.save(function(err, result) {
 		if (err)
 		 res.send(err);
@@ -44,13 +47,4 @@ exports.delete_a_Category = function(req, res){
 
 	});
 };
-
-exports.read_a_Category = function(req, res){
-	Category.findById(req.params.CategoryId, function(err, result){
-		if(err)
-			res.send(err);
-		res.json(result);
-	
-	});
-};
-
+*/
