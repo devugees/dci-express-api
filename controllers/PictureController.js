@@ -1,7 +1,9 @@
 var Picture = require('../models/Picture');
 var fs = require('fs');
+var crypto = require('crypto')
 exports.uploadPicture = (req, res) => {
   if (req.file) {
+    console.log(req.file.mimetype);
     var profilePic = new Picture({path: req.file.path});
     profilePic.save((err, pic) => {
       if (err)

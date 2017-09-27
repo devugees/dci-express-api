@@ -15,6 +15,7 @@ variables.env
 
 # production
 /build
+/uploads
 
 
 
