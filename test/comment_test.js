@@ -36,7 +36,7 @@ describe('Comments Testing', () => {
           done()
         })
     })
-  })
+  }) 
 
   describe('/GET/:item_id', () => {
     it('it should GET a comment by the given id', done => {
