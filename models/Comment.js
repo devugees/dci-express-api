@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise
 
 const commentSchema = new mongoose.Schema({
   comment: String,
@@ -8,6 +7,5 @@ const commentSchema = new mongoose.Schema({
     default: Date.now
   }
 })
-
 
 module.exports = mongoose.model('Comment', commentSchema)
