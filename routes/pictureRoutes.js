@@ -2,8 +2,10 @@ module.exports = function(app) {
 var multer = require('multer');
 var crypto = require('crypto');
 var path = require('path');
+
+require('dotenv').config({ path: 'variables.env' });
 var storage = multer.diskStorage({
-destination: './uploads/',
+destination: process.env.UPLOADSFOLDER,
 filename: function (req, file, cb) {
   crypto.pseudoRandomBytes(16, function (err, raw) {
     if (err) return cb(err)
