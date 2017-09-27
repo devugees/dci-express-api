@@ -7,9 +7,19 @@ exports.showComments = async (req, res) => {
 }
 
 exports.addComment = async (req, res) => {
+
+var commentLength = req.body.comment.length
+  if (commentLength <= 140) {
+
   const comment = await new Comment({ comment: req.body.comment }).save()
 
   res.json({ comment })
+
+  }
+  else {
+    res.json({message :"Maximum limit exceeded" })
+  }
+
 }
 
 exports.getComment = async (req, res) => {
