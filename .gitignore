@@ -11,11 +11,12 @@ variables.env
 
 # testing
 /coverage
+/test-result
 
 # production
 /build
 /uploads
-
+/test-result
 
 # misc
 .DS_Store

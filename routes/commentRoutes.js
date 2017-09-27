@@ -1,13 +1,15 @@
 const { catchErrors } = require('../errorHandler');
-const express = require('express');
-const router = express.Router();
 
-const comment = require('../controllers/commentControllers')
+module.exports = (app) => {
+  const comment = require('../controllers/commentControllers')
 
-router.get('/api', catchErrors(comment.showComments))
+  app.route('/api/comments')
+    .get(catchErrors(comment.showComments))
+    .post(catchErrors(comment.addComment));
 
-router.post('/api/add', catchErrors(comment.addComment))
+  app.route('/api/comments/:item_id')
+    .get(catchErrors(comment.getComment))
+    .delete(catchErrors(comment.removeComment))
+    .put(catchErrors(comment.updateComment));
 
-
-
-module.exports = router;
+}
