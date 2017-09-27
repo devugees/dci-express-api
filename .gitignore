@@ -18,6 +18,7 @@ variables.env
 /uploads
 /test-result
 
+
 # misc
 .DS_Store
 .env.local
