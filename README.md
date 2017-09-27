@@ -4,7 +4,7 @@ RESTful API with Node.js (Express 4) and MongoDB.
 
 ## Models
 - User
-- Post
+- Category
 - Comment
 - Picture
 
