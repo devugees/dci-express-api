@@ -38,4 +38,13 @@ exports.findPictureById = (req, res) => {
       res.send(err);
     res.json(pic);
   });
+
+}
+exports.findPictureByIdWithComments = (req, res) => {
+  console.long('geting the comments to a picture');
+  Comment.find({"pictureid": req.params.id},(err,comment)=>{
+    if (err)
+      res.send(err);
+    res.json(comment);
+      });
 }
