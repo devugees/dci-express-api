@@ -1,31 +1,28 @@
 var Picture = require('../models/Picture');
 var fs = require('fs');
 
-exports.uploadPicture = (req, res) => {
+exports.uploadPicture = async(req, res) => {
   if (req.file) {
     console.log(req.file);
-    var profilePic = new Picture({path: req.file.path});
-    profilePic.save((err, pic) => {
-      if (err)
-        res.send(err)
-      res.json(pic);
-    });
+    const picture = await new Picture({path: req.file.path}).save()
+    res.json(picture);
+  } else {
+    res.json({message: "no image"})
   }
 }
-exports.updatePicture = (req, res) => {
-  console.log("updating")
-  Picture.findById(req.params.id, (err, pic) => {
-    fs.unlink(pic.path)
-  })
-  Picture.update({
+exports.updatePicture = async(req, res) => {
+  const picture = await  Picture.findById(req.params.id);
+    fs.unlink(picture.path);
+    Picture.update(picture,{path:req.file.bath})
+  /**/Picture.update({
     _id: req.params.id
   }, {
     path: req.file.path
   }, (err, pic) => {
     if (err)
-      res.send(err);
-    res.json(pic);
-  })
+      res.send(err)
+    res.json({message: 'image changed'})
+  });
 }
 exports.listAll = (req, res) => {
   Picture.find({}, (err, pic) => {
@@ -34,12 +31,10 @@ exports.listAll = (req, res) => {
     res.json(pic);
   });
 }
-
-
 exports.findPictureById = (req, res) => {
   console.log('getting one picture');
-  Picture.findById(req.params.id, (err,pic) => {
-    if(err)
+  Picture.findById(req.params.id, (err, pic) => {
+    if (err)
       res.send(err);
     res.json(pic);
   });
