@@ -14,16 +14,14 @@ exports.catchErrors = (fn) => {
   };
 };
 
-
 // Simple route middleware to ensure that the user is authenticated.
-// Use this middleware on any route that demands a logged user.
-// If the request is authenticated the request will proceed.
+// Use this middleware on any resource that needs to be protected.
+// If the request is authenticated, the request will proceed.
 // Otherwise, the user will be redirected to the login page.
 
-// Example:
-// Only an authenticated user should be able to remove an Image.
+// Example: I can remove an image only if I am logged in.
 // app.route('/api/...')
-//  .delete(helper.isLoggedIn, catchErrors(img.removeImage))
+//    .delete(isLoggedIn, catchErrors(img.removeImage))
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) return next()
   res.redirect('/login');
