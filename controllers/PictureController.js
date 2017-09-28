@@ -35,7 +35,6 @@ exports.listAll = (req, res) => {
   });
 }
 
-
 exports.findPictureById = (req, res) => {
   console.log('getting one picture');
   Picture.findById(req.params.id, (err,pic) => {
@@ -43,4 +42,13 @@ exports.findPictureById = (req, res) => {
       res.send(err);
     res.json(pic);
   });
+
+}
+exports.findPictureByIdWithComments = (req, res) => {
+  console.long('geting the comments to a picture');
+  Comment.find({"pictureid": req.params.id},(err,comment)=>{
+    if (err)
+      res.send(err);
+    res.json(comment);
+      });
 }

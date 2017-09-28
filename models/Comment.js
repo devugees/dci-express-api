@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
-  comment: String,
+  
+  content: String,
+  pictureid: String,
   created: {
     type: Date,
     default: Date.now
@@ -9,3 +11,4 @@ const commentSchema = new mongoose.Schema({
 })
 
 module.exports = mongoose.model('Comment', commentSchema)
+							

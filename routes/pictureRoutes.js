@@ -33,6 +33,7 @@ module.exports = function(app) {
   });
   var PictureController = require('../controllers/PictureController');
 
-  app.route('/pictureUpload').post(upload.single('profile'), PictureController.uploadPicture).get(PictureController.listAll);
-  app.route('/pictureUpload/:id').put(upload.single('update'), PictureController.updatePicture).get(PictureController.findPictureById)
+  app.route('/pictureUpload').post(upload.single('profile'),PictureController.uploadPicture).get(PictureController.listAll);
+app.route('/pictureUpload/:id').put(upload.single('update'),PictureController.uploadPicture).get(PictureController.findPictureById);
+app.route('/pictureUpload/:id/comments').put(upload.single('update'),PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
 }
