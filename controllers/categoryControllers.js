@@ -3,6 +3,18 @@
 var mongoose = require("mongoose"),
 	Category = mongoose.model("Category");
 
+	exports.list_all_Categories = async(req, res) =>{
+		const categories = await Category.find()
+		res.json(categories)
+	}
+	exports.read_a_Category = async(req, res) =>{
+		const category = await Category.findOne({_id:req.params.CategoryId})
+		const message = {error:'category not found'}
+		res.json(!category ? message:category)
+	}
+
+
+/*
 exports.list_all_Categorys = function(req, res) {
 	Category.find({}, function(err, result) {
 		if (err) res.send(err);

@@ -1,6 +1,7 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = "test";
 require("dotenv").config({ path: "variables.env" });
+const {removeDB} = require('../helpers');
 
 let mongoose = require("mongoose");
 let Category = require("../models/Category");
@@ -8,13 +9,16 @@ let Category = require("../models/Category");
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = "http://localhost:" + process.env.PORT;
+let server = require('../app')
 let should = chai.should();
 let expect = chai.expect;
 
 chai.use(chaiHttp);
 
+
 describe("Category", () => {
+removeDB(Category)
+
   describe("/GET", () => {
     it("it should GET all the Categories", done => {
       chai
@@ -28,7 +32,7 @@ describe("Category", () => {
     });
   });
 
-  describe("/GET/:CategoryId", () => {
+describe("/GET/:CategoryId", () => {
     it("it should GET a Category ", done => {
       const category = new Category({ category: "animales" });
       category.save((err, category) => {
