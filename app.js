@@ -3,10 +3,13 @@ var app        	    = express();
 var bodyParser 	    = require('body-parser');
 var mongoose        = require('mongoose');
 var Category 		    = require("./models/Category.js");
-var categoryRouters      = require('./routes/categoryRouters');
+var categoryRouters = require('./routes/categoryRouters');
 var commentRoutes   = require('./routes/commentRoutes');
 var pictureRoutes   = require('./routes/pictureRoutes');
-var userRoutes = require('./routes/userRouters');
+var userRoutes      = require('./routes/userRouters');
+var authRoutes      = require('./routes/authRoutes');
+var passport        = require('passport')
+
 
 require('dotenv').config({path: 'variables.env'});
 
@@ -30,6 +33,10 @@ db.once('open', function() {
   console.log('conection to database');
 });
 
+// http://www.passportjs.org/docs#middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 // pre Middleware Section
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -44,6 +51,7 @@ categoryRouters(app);
 commentRoutes(app);
 pictureRoutes(app);
 userRoutes(app);
+authRoutes(app);
 
 // 404
 app.use(function(req, res) {
