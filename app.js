@@ -2,6 +2,8 @@ var express    	    = require('express');
 var app        	    = express();
 var bodyParser 	    = require('body-parser');
 var mongoose        = require('mongoose');
+var session         = require('express-session');
+
 var Category 		    = require("./models/Category.js");
 var categoryRouters = require('./routes/categoryRouters');
 var commentRoutes   = require('./routes/commentRoutes');
@@ -33,6 +35,8 @@ db.on('error', console.error.bind(console, 'conection error:'));
 db.once('open', function() {
   console.log('conection to database');
 });
+
+app.use(session({ secret: "evil morty", resave: false, saveUninitialized: false }));
 
 // http://www.passportjs.org/docs#middleware
 app.use(passport.initialize());
