@@ -13,3 +13,9 @@ exports.catchErrors = (fn) => {
     return fn(req, res, next).catch(next);
   };
 };
+
+// if the user is authenticated continue, otherwise redirect to /login
+exports.isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) return next()
+  res.redirect('/login');
+}

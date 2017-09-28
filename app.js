@@ -10,6 +10,7 @@ var userRoutes      = require('./routes/userRouters');
 var authRoutes      = require('./routes/authRoutes');
 var passport        = require('passport')
 
+require('./passport.js');
 
 require('dotenv').config({path: 'variables.env'});
 
