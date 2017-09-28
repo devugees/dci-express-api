@@ -28,25 +28,26 @@ describe("Category", () => {
     });
   });
 
+  describe("/GET/:CategoryId", () => {
+    it("it should GET a Category ", done => {
+      const category = new Category({ category: "animales" });
+      category.save((err, category) => {
+        chai
+          .request(server)
+          .get("/category/" + category.id)
+          .send(category)
+          .end((err, res) => {
+            res.should.have.status(200);
+            res.body.should.be.a("object");
+            res.body.should.have.property("category");
+            res.body.should.have.property("_id").eql(category.id);
 
- /* describe("/GET/:CategoryId", () => {
-    it("it should GET a category ", done => {
-      chai
-        .request(server)
-        .get("/category")
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a("object");
-           res.body.should.have.property('category');
-           res.body.should.have.property('_id').eql(CategoryId);
-
-          done();
-        });
+            done();
+          });
+      });
     });
-  });*/
+  });
 });
-
-
 
 /*describe("/POST", () => {
     it("it should POST a category", done => {
