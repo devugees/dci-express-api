@@ -5,13 +5,15 @@ const chaiHttp = require('chai-http');
 const server = require('../app')
 const should = chai.should();
 
+const { removeDB } = require('../helpers');
+
 const mongoose = require("mongoose");
 const Comment = require('../models/Comment');
 
 chai.use(chaiHttp);
 
 describe('Comments Testing', () => {
-
+  removeDB(Comment)
   describe('/GET', () => {
     it('it should GET all the comments', done => {
       chai.request(server)
@@ -36,7 +38,7 @@ describe('Comments Testing', () => {
           done()
         })
     })
-  }) 
+  })
 
   describe('/GET/:item_id', () => {
     it('it should GET a comment by the given id', done => {

@@ -1,4 +1,4 @@
-const { catchErrors } = require('../errorHandler');
+const { catchErrors } = require('../helpers');
 
 module.exports = (app) => {
   const user = require('../controllers/userControllers')
