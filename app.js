@@ -1,22 +1,23 @@
-var express    	    = require('express');
-var app        	    = express();
-var bodyParser 	    = require('body-parser');
-var mongoose        = require('mongoose');
-var Post 		    = require("./models/Post.js");
-var postRoutes      = require('./routes/postRouters');
-var commentRoutes   = require('./routes/commentRoutes');
-var pictureRoutes   = require('./routes/pictureRoutes');
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var Post = require("./models/Post.js");
+var postRoutes = require('./routes/postRouters');
+var commentRoutes = require('./routes/commentRoutes');
+var pictureRoutes = require('./routes/pictureRoutes');
 var userRoutes = require('./routes/userRouters');
 
-require('dotenv').config({ path: 'variables.env' });
+require('dotenv').config({path: 'variables.env'});
 
-
-const database = process.env.NODE_ENV === "test" ? process.env.TEST_DATABASE : process.env.DATABASE
+const database = process.env.NODE_ENV === "test"
+  ? process.env.TEST_DATABASE
+  : process.env.DATABASE
 
 // Database Section
 mongoose.connect(database, {
-    useMongoClient: true,
-    promiseLibary: global.Promise
+  useMongoClient: true,
+  promiseLibary: global.Promise
 });
 
 var db = mongoose.connection;
@@ -25,18 +26,17 @@ db.on('error', (err) => {
 });
 
 db.on('error', console.error.bind(console, 'conection error:'));
-db.once('open', function(){
-	console.log('conection to database');
+db.once('open', function() {
+  console.log('conection to database');
 });
 
-
 // pre Middleware Section
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Routes
 app.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
+  res.json({message: 'hooray! welcome to our api!'});
 });
 
 postRoutes(app);
@@ -46,7 +46,9 @@ userRoutes(app);
 
 // 404
 app.use(function(req, res) {
-  res.status(404).send({url: req.originalUrl + ' not found'})
+  res.status(404).send({
+    url: req.originalUrl + ' not found'
+  })
 });
 
 // App listens
