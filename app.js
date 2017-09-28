@@ -1,11 +1,11 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var Post = require("./models/Post.js");
-var postRoutes = require('./routes/postRouters');
-var commentRoutes = require('./routes/commentRoutes');
-var pictureRoutes = require('./routes/pictureRoutes');
+var express    	    = require('express');
+var app        	    = express();
+var bodyParser 	    = require('body-parser');
+var mongoose        = require('mongoose');
+var Category 		    = require("./models/Category.js");
+var categoryRouters      = require('./routes/categoryRouters');
+var commentRoutes   = require('./routes/commentRoutes');
+var pictureRoutes   = require('./routes/pictureRoutes');
 var userRoutes = require('./routes/userRouters');
 
 require('dotenv').config({path: 'variables.env'});
@@ -39,7 +39,7 @@ app.get('/', function(req, res) {
   res.json({message: 'hooray! welcome to our api!'});
 });
 
-postRoutes(app);
+categoryRouters(app);
 commentRoutes(app);
 pictureRoutes(app);
 userRoutes(app);
