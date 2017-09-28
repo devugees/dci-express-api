@@ -19,11 +19,11 @@ module.exports = function(app) {
 // multer config for handling file extenions
   var allowedExtension = (req, file, cb) => {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return cb(new Error('Only image files are allowed!'));
+      return cb(new Error('Only image files are allowed!'),false);
     }
     cb(null, true);
   }
-// multer settings 
+// multer settings
   var upload = multer({
     storage: storage,
     limits: {
@@ -34,5 +34,5 @@ module.exports = function(app) {
   var PictureController = require('../controllers/PictureController');
 
   app.route('/pictureUpload').post(upload.single('profile'), PictureController.uploadPicture).get(PictureController.listAll);
-  app.route('/pictureUpload/:id').put(upload.single('update'), PictureController.updatePicture)
+  app.route('/pictureUpload/:id').put(upload.single('update'), PictureController.updatePicture).get(PictureController.findPictureById)
 }

@@ -7,7 +7,7 @@ exports.uploadPicture = (req, res) => {
     var profilePic = new Picture({path: req.file.path});
     profilePic.save((err, pic) => {
       if (err)
-        console.log("the error is " + err);
+        res.send(err)
       res.json(pic);
     });
   }
@@ -30,6 +30,16 @@ exports.updatePicture = (req, res) => {
 exports.listAll = (req, res) => {
   Picture.find({}, (err, pic) => {
     if (err)
+      res.send(err);
+    res.json(pic);
+  });
+}
+
+
+exports.findPictureById = (req, res) => {
+  console.log('getting one picture');
+  Picture.findById(req.params.id, (err,pic) => {
+    if(err)
       res.send(err);
     res.json(pic);
   });
