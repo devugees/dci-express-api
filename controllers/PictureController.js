@@ -14,11 +14,15 @@ exports.uploadPicture = (req, res) => {
 }
 exports.updatePicture = (req, res) => {
   console.log("updating")
-  Picture.findById(req.params.id,(err,pic) =>{
+  Picture.findById(req.params.id, (err, pic) => {
     fs.unlink(pic.path)
   })
-  Picture.update({_id:req.params.id},{path:req.file.path} ,(err,pic) => {
-    if(err)
+  Picture.update({
+    _id: req.params.id
+  }, {
+    path: req.file.path
+  }, (err, pic) => {
+    if (err)
       res.send(err);
     res.json(pic);
   })
