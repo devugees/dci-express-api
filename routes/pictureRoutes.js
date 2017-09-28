@@ -18,7 +18,7 @@ module.exports = function(app) {
   });
 // multer config for handling file extenions
   var allowedExtension = (req, file, cb) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    if (!file.mimetype.startsWith('image/')) {
       return cb(new Error('Only image files are allowed!'),false);
     }
     cb(null, true);
