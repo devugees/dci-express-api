@@ -34,9 +34,10 @@ db.once('open', function() {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.use(express.static('public'))
 // Routes
 app.get('/', function(req, res) {
-  res.json({message: 'hooray! welcome to our api!'});
+  res.sendFile(__dirname + '/index.html');
 });
 
 categoryRouters(app);
