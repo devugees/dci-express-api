@@ -32,10 +32,10 @@ We will use the sandbox from [mlab](https://mlab.com) to create a mongo-server
 
 The idea of the `helpers.js` file is to have all our helpers modules in one place.
 
-In order to use a function you have to **explicitly** require it. You can use explicit require to selectively load only the pieces you need:
+In order to use a helper module you should **explicitly** require it. You can use explicit require to selectively load only the pieces you need:
 ```javascript
 const { siteName } = require('./helpers')
-console.log(siteName) // 'InstaAPI'
+console.log(siteName) // log: 'InstaAPI'
 ```
 You could require as many modules as you want:
 ```javascript
