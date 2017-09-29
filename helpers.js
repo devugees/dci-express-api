@@ -1,3 +1,7 @@
+exports.site = 'http://localhost:8080'
+
+exports.siteName = 'InstaAPI'
+
 // Remove the test database before testing
 exports.removeDB = (db) => {
   before(async () => {

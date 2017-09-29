@@ -2,6 +2,7 @@ require('dotenv').config({path: 'variables.env'});
 
 const passport = require('passport');
 const mongoose = require('mongoose');
+const { site } = require('./helpers');
 
 const User = require('./models/User');
 
@@ -9,7 +10,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const ghSettings = {
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: process.env.CALLBACK_URL
+  callbackURL: `${site}/gh`
 }
 
 passport.use(new GitHubStrategy(ghSettings, (accessToken, refreshToken, profile, done) => {
