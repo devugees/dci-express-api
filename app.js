@@ -11,6 +11,7 @@ var pictureRoutes   = require('./routes/pictureRoutes');
 var userRoutes      = require('./routes/userRouters');
 var authRoutes      = require('./routes/authRoutes');
 var passport        = require('passport')
+var MongoStore      = require('connect-mongo')(session);
 
 require('./passport.js');
 
@@ -36,7 +37,12 @@ db.once('open', function() {
   console.log('conection to database');
 });
 
-app.use(session({ secret: "evil morty", resave: false, saveUninitialized: false }));
+app.use(session({
+  secret: "evil morty",
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
 
 // http://www.passportjs.org/docs#middleware
 app.use(passport.initialize());
