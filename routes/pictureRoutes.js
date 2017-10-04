@@ -45,6 +45,11 @@ module.exports = function(app) {
       catchErrors(PictureController.showForm)
     );
 
+  app.route('/p/:image')
+    .get(
+      catchErrors(PictureController.showPicture)
+    )
+
   app.route('/pictureUpload/:id').put(upload.single('update'), catchErrors(PictureController.updatePicture)).get(catchErrors(PictureController.findPictureById));
   // app.route('/pictureUpload/:id/comments').put(upload.single('update'), PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
 }

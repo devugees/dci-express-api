@@ -14,6 +14,14 @@ exports.uploadPicture = async(req, res) => {
   res.redirect(`back`)
 }
 
+exports.showPicture = async (req, res) => {
+  const image = await Picture.findOne({ path: req.params.image }).populate('author comments')
+
+  if (!image) return res.json({message: 'not found'})
+
+  res.render('image', { title: image.caption, image });
+}
+
 exports.updatePicture = async(req, res) => {
   const picture = await Picture.findById(req.params.id);
   fs.unlink(picture.path);
