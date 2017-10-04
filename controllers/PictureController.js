@@ -20,14 +20,14 @@ exports.updatePicture = async(req, res) => {
     path: req.file.path
   }, (err, pic) => {
     if (err)
-      res.send(err)
+      res.json(err)
     res.json({message: 'image changed'})
   });
 }
 exports.listAll = (req, res) => {
   Picture.find({}, (err, pic) => {
     if (err)
-      res.send(err);
+      res.json(err);
     res.json(pic);
   });
 }
@@ -35,7 +35,7 @@ exports.findPictureById = (req, res) => {
   console.log('getting one picture');
   Picture.findById(req.params.id, (err, pic) => {
     if (err)
-      res.send(err);
+      res.json(err);
     res.json(pic);
   });
 
@@ -44,7 +44,7 @@ exports.findPictureByIdWithComments = (req, res) => {
   console.long('geting the comments to a picture');
   Comment.find({"pictureid": req.params.id},(err,comment)=>{
     if (err)
-      res.send(err);
+      res.json(err);
     res.json(comment);
       });
 }
