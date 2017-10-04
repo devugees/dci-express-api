@@ -8,8 +8,7 @@ let Book = require('../models/Picture');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = 'http://localhost:8080';
-let should = chai.should();
-
+const should = require('should');
 chai.use(chaiHttp);
 //Our parent block
 describe('Pictures', () => {
