@@ -1,13 +1,13 @@
+"use strict";
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
-
-var mongoose = require("mongoose");
-var Book = require('../models/Picture');
+const mongoose = require("mongoose");
+const Book = require('../models/Picture');
 
 //Require the dev-dependencies
-var chai = require('chai');
-var chaiHttp = require('chai-http');
-var server = 'http://localhost:8080';
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = 'http://localhost:8080';
 const should = require('should');
 chai.use(chaiHttp);
 //Our parent block
