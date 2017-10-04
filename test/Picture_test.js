@@ -1,13 +1,13 @@
 //During the test the env variable is set to test
 process.env.NODE_ENV = 'test';
 
-let mongoose = require("mongoose");
-let Book = require('../models/Picture');
+var mongoose = require("mongoose");
+var Book = require('../models/Picture');
 
 //Require the dev-dependencies
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = 'http://localhost:8080';
+var chai = require('chai');
+var chaiHttp = require('chai-http');
+var server = 'http://localhost:8080';
 const should = require('should');
 chai.use(chaiHttp);
 //Our parent block
