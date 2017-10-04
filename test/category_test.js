@@ -9,7 +9,7 @@ let Category = require("../models/Category");
 //Require the dev-dependencies
 let chai = require("chai");
 let chaiHttp = require("chai-http");
-let server = "http://localhost:" + process.env.PORT;
+const server = require('../app')
 let should = chai.should();
 let expect = chai.expect;
 
