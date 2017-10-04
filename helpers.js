@@ -3,6 +3,14 @@ exports.site = 'http://localhost:8080'
 
 exports.siteName = 'InstaAPI'
 
+// Helper to view a 'redeable' json in the templates
+// In a .pug file you can use it like this: pre=h.show(yourVariable)
+exports.show = obj => JSON.stringify(obj, null, 2);
+
+// Awesome library to manipulate and display dates
+// http://momentjs.com/
+exports.moment = require('moment')
+
 // Remove the test database before testing
 exports.removeDB = (db) => {
   before(async () => {
