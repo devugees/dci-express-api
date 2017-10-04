@@ -8,7 +8,7 @@ module.exports = function(app) {
   const {catchErrors, isLoggedIn} = require('../helpers.js')
   // multer config for renaming files
   var storage = multer.diskStorage({
-    destination: process.env.UPLOADSFOLDER,
+    destination: "./public/uploads",
     filename: function(req, file, cb) {
       crypto.pseudoRandomBytes(16, function(err, raw) {
         if (err)
