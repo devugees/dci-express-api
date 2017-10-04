@@ -67,16 +67,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
-// Routes
-// app.get('/', function(req, res) {
-//   res.sendFile(__dirname + '/index.html');
-// });
-
 categoryRouters(app);
 commentRoutes(app);
 pictureRoutes(app);
-userRoutes(app);
 authRoutes(app);
+userRoutes(app);
 
 // 404
 app.use(function(req, res) {
