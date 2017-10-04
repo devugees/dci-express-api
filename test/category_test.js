@@ -3,15 +3,15 @@
 process.env.NODE_ENV = "test";
 require("dotenv").config({ path: "variables.env" });
 
-let mongoose = require("mongoose");
-let Category = require("../models/Category");
+const mongoose = require("mongoose");
+const Category = require("../models/Category");
 
 //Require the dev-dependencies
-let chai = require("chai");
-let chaiHttp = require("chai-http");
-let server = "http://localhost:" + process.env.PORT;
-let should = chai.should();
-let expect = chai.expect;
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const server = require('../app');
+const should = chai.should();
+const expect = chai.expect;
 
 chai.use(chaiHttp);
 
