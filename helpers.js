@@ -1,3 +1,4 @@
+'use strict';
 exports.site = 'http://localhost:8080'
 
 exports.siteName = 'InstaAPI'
