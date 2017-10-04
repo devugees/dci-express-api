@@ -1,0 +1,8 @@
+mixin gallery(image = {})  
+  .card.hoverable.small
+    .card-image
+      a.cover(href=`/p/${image.path}`)
+        img(src=`/uploads/${image.path}` alt=`${image.caption}`)
+      span.card-title= image.caption
+    .card-action  
+      p #{!image.comments ? 0 : image.comments.length} comments

@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const Picture = require('../models/Picture');
+
 const { siteName } = require('../helpers')
 
 exports.showUsers = async (req, res) => {
@@ -12,19 +14,21 @@ exports.showUsers = async (req, res) => {
   });
 }
 
-// ===== We won't add local users, that is managed by Passport and GitHub
-/*
-exports.addUser = async (req, res) => {
-  const user = await new User({first_name:req.body.first_name,last_name:req.body.last_name,user_email:req.body.user_email,age:req.body.age}).save();
-  res.json({user});
-}
-*/
-exports.getUser = async(req, res) =>{
-const user = await User.findOne({_id: req.params.user_id});
+exports.showProfile = async(req, res) =>{
+  const profile = await User.findOne({ username: req.params.username });
 
-const message = {error : "user not found"};
+  if (!profile) return res.json({message: `${req.params.username} not found`})
 
-res.json(!user ? message : user)
+  const images = await Picture.find({ author: profile._id })
+      .sort({ created: 'desc' })
+      .limit(12)
+      .populate('comments');
+
+  res.render('profile', { title:
+    `${siteName} | ${profile.username}`,
+    images,
+    profile
+  });
 }
 
 exports.removeUser = async (req,res)=> {
