@@ -1,15 +1,19 @@
 var Picture = require('../models/Picture');
 var fs = require('fs');
 
-exports.uploadPicture = async(req, res) => {
-  if (req.file) {
-    console.log(req.file);
-    const picture = await new Picture({path: req.file.path}).save()
-    res.redirect('back');
-  } else {
-    res.json({message: "no image"})
-  }
+exports.showForm = async (req, res) => {
+  res.render('upload', {title: 'upload'})
 }
+
+exports.uploadPicture = async(req, res) => {
+  req.body.path = req.file.path.split("/").slice(-1)[0]
+  req.body.author = req.user._id;
+
+  const picture = await (new Picture(req.body)).save();
+
+  res.redirect(`back`)
+}
+
 exports.updatePicture = async(req, res) => {
   const picture = await Picture.findById(req.params.id);
   fs.unlink(picture.path);
