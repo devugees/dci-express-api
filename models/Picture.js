@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PictureSchema = new Schema({
-    path: String,
+    path: {
+      type: String,
+      required: true
+    },
     author: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
