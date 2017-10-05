@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  - const lStyle = "display: flex; font-size: 15px; border-bottom: 1px solid #ccc"
+  - const iStyle = "border: none; background: transparent"
+  - const fStyle = "display: flex; align-items: center"
+  - const cStyle = "flex: 1; margin-left: 10px; text-align: left;"
+
+  .container.center-align(style="margin-top: 50px")
+    .img  
+      img.responsive-img(src=`/uploads/${image.path}`)
+    .row
+      p(style="font-size: 14px") posted 
+        time(datetime=image.created)
+          span #{h.moment(image.created).fromNow()} by   
+        a(href=`/${image.author.username}`)= image.author.name      
+    blockquote.left-align(style="text-transform: italic")= image.caption  
+    if image.comments && image.comments.length
+      ul
+        each comment in image.comments
+          li(style=lStyle)
+            p
+              a(href=`/${comment.author.username}`)= comment.author.name
+            p(style=cStyle)= comment.content
+            if user && user._id == comment.author._id
+              form(action=`/c/${comment._id}`, method="get" style=fStyle)
+                input(type="submit" value="remove" style=iStyle)    
+    if user
+      form(action=`/c/${image._id}`, method="POST")
+        input(name="content", placeholder="Add a comment...", autocomplete="off" maxlength="140")

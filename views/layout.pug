@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css')
+  body(style={background: "whitesmoke"})
+    nav
+      if user
+        ul
+          li
+            a(href=`/${user.username}` style="font-weight: bold; border-right: 1px solid #fff")= user.name
+          li
+            a(href="/pictureUpload") Share an image
+          li  
+            a(href="/logout") Logout
+      if !user
+        ul
+          li
+            a(href="/login") Login
+    
+    main
+      section.container.flow-text
+        block content

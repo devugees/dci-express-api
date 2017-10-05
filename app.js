@@ -1,10 +1,10 @@
 var express    	    = require('express');
+var path            = require('path');
 var app        	    = express();
 var bodyParser 	    = require('body-parser');
 var mongoose        = require('mongoose');
 var session         = require('express-session');
 
-var Category 		    = require("./models/Category.js");
 var categoryRouters = require('./routes/categoryRouters');
 var commentRoutes   = require('./routes/commentRoutes');
 var pictureRoutes   = require('./routes/pictureRoutes');
@@ -12,6 +12,8 @@ var userRoutes      = require('./routes/userRouters');
 var authRoutes      = require('./routes/authRoutes');
 var passport        = require('passport')
 var MongoStore      = require('connect-mongo')(session);
+
+var helpers = require('./helpers')
 
 require('./passport.js');
 
@@ -37,6 +39,11 @@ db.once('open', function() {
   console.log('conection to database');
 });
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
   secret: "evil morty",
   resave: false,
@@ -48,21 +55,23 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// This middleware must be after passport's middleware
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  res.locals.h = helpers;
+  next();
+});
+
 // pre Middleware Section
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use(express.static('public'))
-// Routes
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
-});
 
 categoryRouters(app);
 commentRoutes(app);
 pictureRoutes(app);
-userRoutes(app);
 authRoutes(app);
+userRoutes(app);
 
 // 404
 app.use(function(req, res) {
@@ -72,6 +81,6 @@ app.use(function(req, res) {
 });
 
 // App listens
-app.listen(process.env.PORT, () => console.log('\x1b[33m%s\x1b[0m', `Express running → PORT ${process.env.PORT}`))
+app.listen(process.env.PORT, () => console.log('\x1b[34m%s\x1b[0m', `\n\n\t Express running → PORT ${process.env.PORT}\n\n`))
 
 module.exports = app

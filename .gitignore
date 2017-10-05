@@ -17,7 +17,8 @@ variables.env
 /build
 /uploads
 /test-result
-
+.circleci
+.eslintrc
 
 # misc
 .DS_Store

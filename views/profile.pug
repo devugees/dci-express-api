@@ -1,0 +1,16 @@
+extends layout
+include mixins/_gallery
+
+block content  
+  .container.center-align(style="margin-top: 50px")
+    img.responsive-img.circle(src=profile.avatar_url style={width: "50%"})
+    h1= !profile.name ? profile.username : profile.name
+    p
+      a(href=profile.github_url, target="_blank") Github profile
+    if profile.website.length
+    p
+      a(href=`http://${profile.website}`, target="_blank") Personal website
+    p posts #{images.length}
+
+    each image in images  
+      +gallery(image)

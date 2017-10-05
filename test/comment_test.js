@@ -7,13 +7,36 @@ const should = chai.should();
 
 const { removeDB } = require('../helpers');
 
-const mongoose = require("mongoose");
 const Comment = require('../models/Comment');
+const Picture = require('../models/Picture');
 
 chai.use(chaiHttp);
 
 describe('Comments Testing', () => {
   removeDB(Comment)
+  removeDB(Picture)
+
+  const test = {
+    content: 'Automatic test message',
+    author: "",
+    image: ""
+  }
+
+  const makeFakeImage = async () => {
+    const image = await new Picture({
+      author: '59d5e14670fb720b42ab6799',
+      path: 'fake/path'
+    })
+
+    image.save((err, ima) => {
+      test.author = ima.author;
+      test.image = ima._id
+    })
+  }
+
+  makeFakeImage()
+
+
   describe('/GET', () => {
     it('it should GET all the comments', done => {
       chai.request(server)
@@ -29,12 +52,11 @@ describe('Comments Testing', () => {
   describe('/POST', () => {
     it('it should POST a comment', done => {
       chai.request(server)
-        .post('/api/comments')
-        .send({content: 'this a test comment'})
+        .post(`/c/${test.image}`)
+        .send({ content: test.content })
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.comment.should.have.property('content');
           done()
         })
     })
@@ -42,7 +64,11 @@ describe('Comments Testing', () => {
 
   describe('/GET/:item_id', () => {
     it('it should GET a comment by the given id', done => {
-      const comment = new Comment({ content: "this a test comment"})
+      const comment = new Comment({
+        content: test.content,
+        author: test.author,
+        image: test.image
+      })
 
       comment.save((err, comment) => {
         chai.request(server)
@@ -59,17 +85,20 @@ describe('Comments Testing', () => {
     })
   })
 
-  describe('/DELETE/:item_id', () => {
+  describe('/get/:id', () => {
     it('it should DELETE a comment given the id', done => {
-      const comment = new Comment({ content: "this a test comment" })
+      const comment = new Comment({
+        content: test.content,
+        author: test.author,
+        image: test.image
+      })
 
-      comment.save((err, book) => {
+      comment.save((err, comment) => {
         chai.request(server)
-          .delete(`/api/comments/${comment.id}`)
+          .get(`/c/${comment.id}`)
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('message').eql('Message deleted');
           done()
           })
         })
@@ -78,9 +107,13 @@ describe('Comments Testing', () => {
 
   describe('/PUT/:item_id', () => {
     it('it should UPDATE a comment given the id', done => {
-      const comment = new Comment({ content: "this a test comment"})
+      const comment = new Comment({
+        content: test.content,
+        author: test.author,
+        image: test.image
+      })
 
-      comment.save((err, book) => {
+      comment.save((err, comment) => {
         chai.request(server)
           .put(`/api/comments/${comment.id}`)
           .send({content: "This is an updated comment, pickle rick!"})

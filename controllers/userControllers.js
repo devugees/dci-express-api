@@ -1,21 +1,34 @@
 const User = require('../models/User');
+const Picture = require('../models/Picture');
 
-exports.showUsers = async ( req , res ) => {
-  const users = await User.find();
-  res.json(users);
+const { siteName } = require('../helpers')
+
+exports.showUsers = async (req, res) => {
+  const profiles = await User.find()
+    .sort({ created: -1 })
+    .limit(12)
+
+  res.render('home', {
+    title: `${siteName} | Home`,
+    profiles:  req.user && profiles.filter(p => !p.username.includes(req.user.username))
+  });
 }
 
-exports.addUser = async (req, res) => {
-  const user = await new User({first_name:req.body.first_name,last_name:req.body.last_name,user_email:req.body.user_email,age:req.body.age}).save();
-  res.json({user});
-}
+exports.showProfile = async(req, res) =>{
+  const profile = await User.findOne({ username: req.params.username });
 
-exports.getUser = async(req, res) =>{
-const user = await User.findOne({_id: req.params.user_id});
+  if (!profile) return res.json({message: `${req.params.username} not found`})
 
-const message = {error : "user not found"};
+  const images = await Picture.find({ author: profile._id })
+      .sort({ created: 'desc' })
+      .limit(12)
+      .populate('comments');
 
-res.json(!user ? message : user)
+  res.render('profile', { title:
+    `${siteName} | ${profile.username}`,
+    images,
+    profile
+  });
 }
 
 exports.removeUser = async (req,res)=> {

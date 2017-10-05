@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PictureSchema = new Schema({
-    path: String,
+    path: {
+      type: String,
+      required: true
+    },
     author: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
@@ -17,16 +20,16 @@ var PictureSchema = new Schema({
       default: Date.now
     }
 }, {
+  toObject: { virtuals: true },
   toJSON: {
     virtual: true
   }
 });
-PictureSchema.virtual('members', {
-  ref: 'Comment', // The model to use
-  localField: 'comment', // Find people where `localField`
-  foreignField: 'Picture', // is equal to `foreignField`
-  // If `justOne` is true, 'members' will be a single doc as opposed to
-  // an array. `justOne` is false by default.
-  justOne: false
+
+PictureSchema.virtual('comments', {
+  ref: 'Comment', // what model to link?
+  localField: '_id', // which field on the Image schema?
+  foreignField: 'image' // which field on the Comment schema?
 });
+
 module.exports = mongoose.model("Picture", PictureSchema);
