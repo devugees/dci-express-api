@@ -1,12 +1,14 @@
+/* eslint-disable */
+
 module.exports = function(app) {
   var multer = require('multer');
   var crypto = require('crypto');
   var path = require('path');
   require('dotenv').config({path: 'variables.env'});
-  const {catchErrors} = require('../helpers.js')
+  const {catchErrors, isLoggedIn} = require('../helpers.js')
   // multer config for renaming files
   var storage = multer.diskStorage({
-    destination: process.env.UPLOADSFOLDER,
+    destination: "./public/uploads",
     filename: function(req, file, cb) {
       crypto.pseudoRandomBytes(16, function(err, raw) {
         if (err)
@@ -33,7 +35,21 @@ module.exports = function(app) {
   });
   var PictureController = require('../controllers/PictureController');
 
-  app.route('/pictureUpload').post(upload.single('profile'), catchErrors(PictureController.uploadPicture)).get(catchErrors(PictureController.listAll));
+  app.route('/pictureUpload')
+    .post(
+      upload.single('path'),
+      catchErrors(PictureController.uploadPicture)
+    )
+    .get(
+      isLoggedIn,
+      catchErrors(PictureController.showForm)
+    );
+
+  app.route('/p/:image')
+    .get(
+      catchErrors(PictureController.showPicture)
+    )
+
   app.route('/pictureUpload/:id').put(upload.single('update'), catchErrors(PictureController.updatePicture)).get(catchErrors(PictureController.findPictureById));
   // app.route('/pictureUpload/:id/comments').put(upload.single('update'), PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
 }
