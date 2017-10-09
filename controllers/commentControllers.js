@@ -11,7 +11,7 @@ exports.addComment = async (req, res) => {
 var commentLength = req.body.content.length
   if (commentLength <= 140) {
 
-  const comment = await new Comment({content: req.body.content, pictureid: req.body.pictureid })
+  const comment = await new Comment({content: req.body.content, pictureid: req.body.pictureid }).save()
 
   res.json({ comment })
 
