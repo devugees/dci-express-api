@@ -16,7 +16,7 @@ describe('Pictures', () => {
   describe('/GET Pictures', () => {
       it('it should GET all the Pictures from data base', (done) => {
         chai.request(server)
-            .get('/pictureUpload')
+            .get('/api/images')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
