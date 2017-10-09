@@ -2,25 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PictureSchema = new Schema({
-    path: String,
-    author: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      required: true
-    },
-    caption: {
-      type: String,
-      trim: true
-    },
-    created: {
-      type: Date,
-      default: Date.now
-    }
-}, {
-  toJSON: {
-    virtual: true
-  }
-});
+  path:String
+}) ;
 PictureSchema.virtual('members', {
   ref: 'Comment', // The model to use
   localField: 'comment', // Find people where `localField`
@@ -29,4 +12,4 @@ PictureSchema.virtual('members', {
   // an array. `justOne` is false by default.
   justOne: false
 });
-module.exports = mongoose.model("Picture", PictureSchema);
+module.exports = mongoose.model("Picture",PictureSchema);

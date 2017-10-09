@@ -5,42 +5,46 @@ exports.uploadPicture = async(req, res) => {
   if (req.file) {
     console.log(req.file);
     const picture = await new Picture({path: req.file.path}).save()
-    res.redirect('back');
+    res.json(picture);
   } else {
     res.json({message: "no image"})
   }
 }
 exports.updatePicture = async(req, res) => {
-  const picture = await Picture.findById(req.params.id);
-  fs.unlink(picture.path);
-  Picture.update(picture, {path: req.file.bath});
-
-  Picture.update({
+  const picture = await  Picture.findById(req.params.id);
+    fs.unlink(picture.path);
+    Picture.update(picture,{path:req.file.bath})
+  /**/Picture.update({
     _id: req.params.id
   }, {
     path: req.file.path
   }, (err, pic) => {
     if (err)
-      res.json(err)
+      res.send(err)
     res.json({message: 'image changed'})
   });
 }
-exports.listAll = async(req, res) => {
-  const pictures = await Picture.find().limit(10)
-  res.json(pictures);
-
+exports.listAll = (req, res) => {
+  Picture.find({}, (err, pic) => {
+    if (err)
+      res.send(err);
+    res.json(pic);
+  });
 }
-exports.findPictureById = async(req, res) => {
-  const picture = await Picture.findById(req.params.id);
-  res.json(picture)
+exports.findPictureById = (req, res) => {
+  console.log('getting one picture');
+  Picture.findById(req.params.id, (err, pic) => {
+    if (err)
+      res.send(err);
+    res.json(pic);
+  });
 
 }
 exports.findPictureByIdWithComments = (req, res) => {
-  Comment.find({
-    "pictureid": req.params.id
-  }, (err, comment) => {
+  console.long('geting the comments to a picture');
+  Comment.find({"pictureid": req.params.id},(err,comment)=>{
     if (err)
-      res.json(err);
+      res.send(err);
     res.json(comment);
-  });
+      });
 }
