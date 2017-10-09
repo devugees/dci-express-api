@@ -31,9 +31,18 @@ module.exports = function(app) {
     },
     fileFilter: allowedExtension
   });
-  var PictureController = require('../controllers/PictureController');
 
-  app.route('/pictureUpload').post(upload.single('profile'), catchErrors(PictureController.uploadPicture)).get(catchErrors(PictureController.listAll));
-  app.route('/pictureUpload/:id').put(upload.single('update'), catchErrors(PictureController.updatePicture)).get(catchErrors(PictureController.findPictureById));
+  const image = require('../controllers/PictureController');
+
+  app.route('/api/images')
+    .get(catchErrors(image.listAll))
+    .post(upload.single('profile'), catchErrors(image.uploadPicture))
+
+  app.route('/api/images/:id')
+    .get(catchErrors(image.findPictureById))
+    .put(upload.single('update'), catchErrors(image.updatePicture))
+
+
+
   // app.route('/pictureUpload/:id/comments').put(upload.single('update'), PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
 }
