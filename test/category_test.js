@@ -20,7 +20,7 @@ describe("Category", () => {
     it("it should GET all the Categories", done => {
       chai
         .request(server)
-        .get("/category")
+        .get("/api/category")
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a("array");
@@ -35,7 +35,7 @@ describe("Category", () => {
       category.save((err, category) => {
         chai
           .request(server)
-          .get("/category/" + category.id)
+          .get("/api/category/" + category.id)
           .send(category)
           .end((err, res) => {
             res.should.have.status(200);
