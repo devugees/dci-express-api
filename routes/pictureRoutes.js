@@ -3,7 +3,7 @@ module.exports = function(app) {
   var crypto = require('crypto');
   var path = require('path');
   require('dotenv').config({path: 'variables.env'});
-
+  const {catchErrors} = require('../helpers.js')
   // multer config for renaming files
   var storage = multer.diskStorage({
     destination: process.env.UPLOADSFOLDER,
@@ -16,14 +16,14 @@ module.exports = function(app) {
       })
     }
   });
-// multer config for handling file extenions
+  // multer config for handling file extenions
   var allowedExtension = (req, file, cb) => {
     if (!file.mimetype.startsWith('image/')) {
-      return cb(new Error('Only image files are allowed!'),false);
+      return cb(new Error('Only image files are allowed!'), false);
     }
     cb(null, true);
   }
-// multer settings
+  // multer settings
   var upload = multer({
     storage: storage,
     limits: {
@@ -33,7 +33,7 @@ module.exports = function(app) {
   });
   var PictureController = require('../controllers/PictureController');
 
-  app.route('/pictureUpload').post(upload.single('profile'),PictureController.uploadPicture).get(PictureController.listAll);
-app.route('/pictureUpload/:id').put(upload.single('update'),PictureController.uploadPicture).get(PictureController.findPictureById);
-app.route('/pictureUpload/:id/comments').put(upload.single('update'),PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
+  app.route('/pictureUpload').post(upload.single('profile'), catchErrors(PictureController.uploadPicture)).get(catchErrors(PictureController.listAll));
+  app.route('/pictureUpload/:id').put(upload.single('update'), catchErrors(PictureController.updatePicture)).get(catchErrors(PictureController.findPictureById));
+  // app.route('/pictureUpload/:id/comments').put(upload.single('update'), PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
 }

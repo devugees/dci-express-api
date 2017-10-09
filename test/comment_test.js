@@ -30,11 +30,11 @@ describe('Comments Testing', () => {
     it('it should POST a comment', done => {
       chai.request(server)
         .post('/api/comments')
-        .send({comment: 'this a test comment'})
+        .send({content: 'this a test comment'})
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.comment.should.have.property('comment');
+            res.body.comment.should.have.property('content');
           done()
         })
     })
@@ -42,7 +42,7 @@ describe('Comments Testing', () => {
 
   describe('/GET/:item_id', () => {
     it('it should GET a comment by the given id', done => {
-      const comment = new Comment({ comment: "this a test comment"})
+      const comment = new Comment({ content: "this a test comment"})
 
       comment.save((err, comment) => {
         chai.request(server)
@@ -51,7 +51,7 @@ describe('Comments Testing', () => {
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('comment');
+            res.body.should.have.property('content');
             res.body.should.have.property('_id').eql(comment.id);
           done()
           })
@@ -61,7 +61,7 @@ describe('Comments Testing', () => {
 
   describe('/DELETE/:item_id', () => {
     it('it should DELETE a comment given the id', done => {
-      const comment = new Comment({ comment: "this a test comment" })
+      const comment = new Comment({ content: "this a test comment" })
 
       comment.save((err, book) => {
         chai.request(server)
@@ -78,16 +78,16 @@ describe('Comments Testing', () => {
 
   describe('/PUT/:item_id', () => {
     it('it should UPDATE a comment given the id', done => {
-      const comment = new Comment({ comment: "this a test comment"})
+      const comment = new Comment({ content: "this a test comment"})
 
       comment.save((err, book) => {
         chai.request(server)
           .put(`/api/comments/${comment.id}`)
-          .send({comment: "This is an updated comment, pickle rick!"})
+          .send({content: "This is an updated comment, pickle rick!"})
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('comment');
+            res.body.should.have.property('content');
             res.body.should.have.property('_id').eql(comment.id);
           done()
           })
