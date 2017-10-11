@@ -12,7 +12,7 @@ const should = require('should');
 chai.use(chaiHttp);
 //Our parent block
 describe('Pictures', () => {
-  removeDB(Picture)
+removeDB(Picture)
   describe('/GET Pictures', () => {
       it('it should GET all the Pictures from data base', (done) => {
         chai.request(server)

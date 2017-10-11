@@ -15,7 +15,7 @@ var MongoStore      = require('connect-mongo')(session);
 
 require('./passport.js');
 
-require('dotenv').config({path: 'variables.env'});
+require('dotenv').config({path: '.env'});
 
 const database = process.env.NODE_ENV === "test"
   ? process.env.TEST_DATABASE

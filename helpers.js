@@ -11,6 +11,7 @@ exports.removeDB = (db) => {
   })
 }
 
+
 // Errors Handler
 // With async/await we need some way to catch errors.
 exports.catchErrors = (fn) => {
