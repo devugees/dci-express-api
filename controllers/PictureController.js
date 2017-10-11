@@ -2,14 +2,14 @@ var Picture = require('../models/Picture');
 var fs = require('fs');
 
 exports.uploadPicture = async(req, res) => {
-  if (req.file) {
-    console.log(req.file);
-    const picture = await new Picture({path: req.file.path}).save()
-    res.redirect('back');
-  } else {
-    res.json({message: "no image"})
-  }
+  req.body.path = req.file.path
+  req.body.author = req.user._id;
+
+  const picture = await (new Picture(req.body)).save();
+
+  res.redirect(`back`)
 }
+
 exports.updatePicture = async(req, res) => {
   const picture = await Picture.findById(req.params.id);
   fs.unlink(picture.path);
@@ -25,6 +25,7 @@ exports.updatePicture = async(req, res) => {
     res.json({message: 'image changed'})
   });
 }
+
 exports.listAll = async(req, res) => {
   const pictures = await Picture.find().limit(10)
   res.json(pictures);
@@ -43,4 +44,9 @@ exports.findPictureByIdWithComments = (req, res) => {
       res.json(err);
     res.json(comment);
   });
+}
+
+
+exports.showForm = (req, res) => {
+  res.render('upload', {title: 'upload'})
 }
