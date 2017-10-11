@@ -3,6 +3,7 @@ var app        	    = express();
 var bodyParser 	    = require('body-parser');
 var mongoose        = require('mongoose');
 var session         = require('express-session');
+var path            = require('path');
 
 var Category 		    = require("./models/Category.js");
 var categoryRouters = require('./routes/categoryRouters');
@@ -36,6 +37,12 @@ db.on('error', console.error.bind(console, 'conection error:'));
 db.once('open', function() {
   console.log('conection to database');
 });
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
   secret: "evil morty",

@@ -17,6 +17,7 @@ var PictureSchema = new Schema({
       default: Date.now
     }
 }, {
+  toObject: { virtuals: true },
   toJSON: {
     virtual: true
   }

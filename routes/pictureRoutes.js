@@ -3,7 +3,7 @@ module.exports = function(app) {
   var crypto = require('crypto');
   var path = require('path');
   require('dotenv').config({path: '.env'});
-  const {catchErrors} = require('../helpers.js')
+  const {catchErrors, isLoggedIn} = require('../helpers.js')
   // multer config for renaming files
   var storage = multer.diskStorage({
     destination: process.env.UPLOADSFOLDER,
@@ -34,9 +34,12 @@ module.exports = function(app) {
 
   const image = require('../controllers/PictureController');
 
+  app.route('/upload')
+    .get(isLoggedIn, image.showForm)
+
   app.route('/api/images')
     .get(catchErrors(image.listAll))
-    .post(upload.single('profile'), catchErrors(image.uploadPicture))
+    .post(upload.single('path'), catchErrors(image.uploadPicture))
 
   app.route('/api/images/:id')
     .get(catchErrors(image.findPictureById))
