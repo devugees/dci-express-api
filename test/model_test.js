@@ -1,6 +1,6 @@
 //During the test the env variable is set to test
 /*process.env.NODE_ENV = 'test';
-require('dotenv').config({ path: 'variables.env' });
+require('dotenv').config({ path: '.env' });
 
 let mongoose = require("mongoose");
 let Book = require('../models/Category');

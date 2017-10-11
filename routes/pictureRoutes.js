@@ -2,7 +2,7 @@ module.exports = function(app) {
   var multer = require('multer');
   var crypto = require('crypto');
   var path = require('path');
-  require('dotenv').config({path: 'variables.env'});
+  require('dotenv').config({path: '.env'});
   const {catchErrors} = require('../helpers.js')
   // multer config for renaming files
   var storage = multer.diskStorage({
