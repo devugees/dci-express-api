@@ -3,8 +3,8 @@ extends layout
 block content
   - const formStyle = `display: flex; flex-direction: column; padding: 20px 30%`
   - const marg = `margin: 10px 0; cursor: pointer`
-  
+
   form.form-control(action='/api/images', method='POST', enctype='multipart/form-data' style=formStyle)
-    input(type='file' id="photo" name='path' accept='image/png image/jpeg' required style=marg)
+    input(type='file' id="photo" name='image' accept='image/png image/jpeg' required style=marg)
     textarea(name='caption', placeholder='Write your stupid caption...', maxlength='140' style=marg)
     input.btn.btn-dark(type='submit', value='Share' style=marg)
