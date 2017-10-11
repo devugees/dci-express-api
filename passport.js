@@ -1,4 +1,4 @@
-require('dotenv').config({path: 'variables.env'});
+require('dotenv').config({path: '.env'});
 
 const passport = require('passport');
 const mongoose = require('mongoose');

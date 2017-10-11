@@ -21,6 +21,41 @@ Routes for each model, replace `$MODEL` with model name
 | /api/$MODEL/:item_id | PUT       | Update a item with new info. |
 
 ## Guide
+
+### Setting your development environment
+#### Clone the repo on your machine
+`git clone https://github.com/devugees/dci-express-api.git`
+
+Navigate to your project folder `cd dci-express-api`.
+
+Install all the dependences `npm install`.
+
+make sure to create your `.env` file in the root of your project folder.
+#### .env model
+You all should use this model in your `.env` file.
+```
+NODE_ENV=development
+DATABASE=mongodb://<user>:<pass>@...
+TEST_DATABASE=mongodb://<user>:<pass>@...
+PORT=8080
+CLIENT_ID=XXXXX
+CLIENT_SECRET=XXXXX
+UPLOADSFOLDER=./uploads/
+```
+The `CLIENT_ID` and `CLIENT_SECRET` are required by GitHub in order to authenticate the user via PassportJS.
+
+Both keys were shared by Tommy in the WhatsApp's group.
+
+Run the server `nodemon app.js`
+
+The server should be running on 
+[localhost:8080](localhost:8080)
+#### Testing
+Run all the tests using `npm test`
+
+
+
+
 ### App (node)
 [Build restful api with node](https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4)
 [Express Structure](https://www.terlici.com/2014/08/25/best-practices-express-structure.html)
@@ -63,18 +98,3 @@ module.exports = (app) => {
      .post(isLoggedIn, catchErrors(commentController.addComment))
 }
 ```
-
-
-## Variables.env model
-You all should use this model in your `variables.env` file.
-```
-NODE_ENV=development
-DATABASE=mongodb://<user>:<pass>@...
-TEST_DATABASE=mongodb://<user>:<pass>@...
-PORT=8080
-CLIENT_ID=XXXXX
-CLIENT_SECRET=XXXXX
-```
-The `CLIENT_ID` and `CLIENT_SECRET` are required by GitHub in order to authenticate the user via PassportJS.
-
-Both keys were shared by Tommy in the WhatsApp's group.
