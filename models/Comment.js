@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const commentSchema = new mongoose.Schema({
 
   content: String,
-  pictureid: String,
+  pictureid: { 
+    type: mongoose.Schema.ObjectId,
+    ref: 'Image',
+    required: true
+  },
   created: {
     type: Date,
     default: Date.now
