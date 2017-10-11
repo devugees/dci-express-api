@@ -31,6 +31,9 @@ exports.catchErrors = (fn) => {
 // app.route('/api/...')
 //    .delete(isLoggedIn, catchErrors(img.removeImage))
 exports.isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) return next()
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  req.session.returnTo = req.path
   res.redirect('/login');
 }
