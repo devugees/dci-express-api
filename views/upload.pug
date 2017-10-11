@@ -7,4 +7,7 @@ block content
   form.form-control(action='/api/images', method='POST', enctype='multipart/form-data' style=formStyle)
     input(type='file' id="photo" name='image' accept='image/png image/jpeg' required style=marg)
     textarea(name='caption', placeholder='Write your stupid caption...', maxlength='140' style=marg)
+    select(name='category')
+        each cat in categories
+            option(value=cat._id)= cat.name
     input.btn.btn-dark(type='submit', value='Share' style=marg)

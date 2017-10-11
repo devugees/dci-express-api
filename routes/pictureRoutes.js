@@ -4,7 +4,7 @@ const {catchErrors, isLoggedIn} = require('../helpers.js');
   const image = require('../controllers/PictureController');
 
   app.route('/upload')
-    .get(isLoggedIn, image.showForm)
+    .get(isLoggedIn,catchErrors(image.showForm))
 
   app.route('/api/images')
     .get(catchErrors(image.listAll))
