@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  - const formStyle = `display: flex; flex-direction: column; padding: 20px 30%`
+  - const marg = `margin: 10px 0; cursor: pointer`
+  
+  form.form-control(action='/api/contact', method='POST' style=formStyle)
+    input(type='text' name='name' placeholder="Name" value=`${user && user.name}` required style=marg)
+    input(type='email' name='email' placeholder="Email" required style=marg)
+    input(type='number' name='phone' placeholder="Phone" style=marg)
+    textarea(name='caption', placeholder='Write your message...', maxlength='540' style=marg)
+    input.btn.btn-dark(type='submit', value='Submit' style=marg)
