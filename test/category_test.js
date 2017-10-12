@@ -1,7 +1,7 @@
 "use strict";
 //During the test the env variable is set to test
 process.env.NODE_ENV = "test";
-require("dotenv").config({ path: "variables.env" });
+require("dotenv").config({ path: ".env" });
 
 const mongoose = require("mongoose");
 const Category = require("../models/Category");
