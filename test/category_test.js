@@ -13,9 +13,12 @@ const server = require('../app');
 const should = chai.should();
 const expect = chai.expect;
 
+const { removeDB } = require('../helpers');
+
 chai.use(chaiHttp);
 
 describe("Category", () => {
+   removeDB(Category)
   describe("/GET", () => {
     it("it should GET all the Categories", done => {
       chai
