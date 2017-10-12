@@ -41,8 +41,8 @@ exports.saveImage = async(req, res) => {
   req.body.author = req.user._id;
 
   const picture = await (new Picture(req.body)).save();
-
-  res.redirect(`back`)
+  const id = await picture._id
+  res.redirect(`image/${id}`)
 }
 
 exports.handeUpdatedImage = async(req, res) => {
@@ -68,7 +68,8 @@ exports.listAll = async(req, res) => {
 }
 exports.findImageById = async(req, res) => {
   const picture = await Picture.findById(req.params.id);
-  res.json(picture)
+  console.log(req.params.id);
+  res.render(`image`,{picture})
 
 }
 exports.findImageByIdWithComments = (req, res) => {

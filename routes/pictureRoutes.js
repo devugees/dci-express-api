@@ -11,7 +11,7 @@ const {catchErrors, isLoggedIn} = require('../helpers.js');
     .post(image.uploadImage,
       catchErrors(image.saveImage))
 
-  app.route('/api/images/:id')
+  app.route('/api/image/:id')
     .get(catchErrors(image.findImageById))
     .put(image.uploadImage,
       catchErrors(image.handeUpdatedImage))
