@@ -31,7 +31,7 @@ describe("Category", () => {
 
   describe("/GET/:CategoryId", () => {
     it("it should GET a Category ", done => {
-      const category = new Category({ category: "animales" });
+      const category = new Category({ name: "animales" });
       category.save((err, category) => {
         chai
           .request(server)
@@ -40,7 +40,7 @@ describe("Category", () => {
           .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a("object");
-            res.body.should.have.property("category");
+            res.body.should.have.property("name");
             res.body.should.have.property("_id").eql(category.id);
 
             done();
