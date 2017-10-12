@@ -4,6 +4,7 @@ const multer = require('multer');
 const crypto = require('crypto');
 const path = require('path');
 require('dotenv').config({path: '.env'});
+var Category = require('../models/Category');
 
 // multer config for renaming files
 const storage = multer.diskStorage({
@@ -82,6 +83,7 @@ exports.findImageByIdWithComments = (req, res) => {
 }
 
 
-exports.showForm = (req, res) => {
-  res.render('upload', {title: 'upload'})
+exports.showForm =async(req, res) => {
+  const categories = await Category.find();
+  res.render('upload', {title: 'upload',categories})
 }

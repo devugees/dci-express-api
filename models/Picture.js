@@ -8,6 +8,11 @@ var PictureSchema = new Schema({
       ref: 'User',
       required: true
     },
+     category: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Category',
+      required: true
+    },
     caption: {
       type: String,
       trim: true
