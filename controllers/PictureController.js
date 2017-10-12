@@ -37,7 +37,7 @@ exports.uploadImage = multer({
 }).single('image');
 /*======== Save Image Handler ==============*/
 exports.saveImage = async(req, res) => {
-  req.body.path = req.file.path;
+  req.body.path = req.file.filename
   req.body.author = req.user._id;
 
   const picture = await (new Picture(req.body)).save();
@@ -48,7 +48,7 @@ exports.saveImage = async(req, res) => {
 exports.handeUpdatedImage = async(req, res) => {
   const picture = await Picture.findById(req.params.id);
   fs.unlink(picture.path);
-  Picture.update(picture, {path: req.file.bath});
+  Picture.update(picture, {path: req.file.path});
 
   Picture.update({
     _id: req.params.id
@@ -68,8 +68,7 @@ exports.listAll = async(req, res) => {
 }
 exports.findImageById = async(req, res) => {
   const picture = await Picture.findById(req.params.id);
-  console.log(req.params.id);
-  res.render(`image`,{picture})
+  res.render(`image`,{ title: "My Image", picture })
 
 }
 exports.findImageByIdWithComments = (req, res) => {
