@@ -3,7 +3,6 @@ const passport = require('passport');
 exports.login = passport.authenticate('github');
 
 exports.authenticate = passport.authenticate('github', {
-  successRedirect: '/',
   failureRedirect: '/login'
 });
 
