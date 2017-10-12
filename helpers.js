@@ -3,6 +3,9 @@ exports.site = 'http://localhost:8080'
 
 exports.siteName = 'InstaAPI'
 
+// Used to view information in the views
+exports.show = obj => JSON.stringify(obj, null, 2);
+
 // Remove the test database before testing
 exports.removeDB = (db) => {
   before(async () => {
