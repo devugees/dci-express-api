@@ -8,7 +8,6 @@ exports.list_all_Categorys = function(req, res) {
 		if (err) res.send(err);
 		res.json(result);
 
-		console.log(result);
 	});
 };
 exports.read_a_Category = function(req, res) {

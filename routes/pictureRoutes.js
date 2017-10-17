@@ -1,39 +1,22 @@
 module.exports = function(app) {
-  var multer = require('multer');
-  var crypto = require('crypto');
-  var path = require('path');
-  require('dotenv').config({path: 'variables.env'});
+const {catchErrors, isLoggedIn} = require('../helpers.js');
 
-  // multer config for renaming files
-  var storage = multer.diskStorage({
-    destination: process.env.UPLOADSFOLDER,
-    filename: function(req, file, cb) {
-      crypto.pseudoRandomBytes(16, function(err, raw) {
-        if (err)
-          return cb(err)
+  const image = require('../controllers/PictureController');
 
-        cb(null, Date.now() + raw.toString('hex') + path.extname(file.originalname))
-      })
-    }
-  });
-// multer config for handling file extenions
-  var allowedExtension = (req, file, cb) => {
-    if (!file.mimetype.startsWith('image/')) {
-      return cb(new Error('Only image files are allowed!'),false);
-    }
-    cb(null, true);
-  }
-// multer settings
-  var upload = multer({
-    storage: storage,
-    limits: {
-      fileSize: 10485760
-    },
-    fileFilter: allowedExtension
-  });
-  var PictureController = require('../controllers/PictureController');
+  app.route('/upload')
+    .get(isLoggedIn,catchErrors(image.showForm))
 
-  app.route('/pictureUpload').post(upload.single('profile'),PictureController.uploadPicture).get(PictureController.listAll);
-app.route('/pictureUpload/:id').put(upload.single('update'),PictureController.uploadPicture).get(PictureController.findPictureById);
-app.route('/pictureUpload/:id/comments').put(upload.single('update'),PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
+  app.route('/api/images')
+    .get(catchErrors(image.listAll))
+    .post(image.uploadImage,
+      catchErrors(image.saveImage))
+
+  app.route('/api/images/:id')
+    .get(catchErrors(image.findImageById))
+    .put(image.uploadImage,
+      catchErrors(image.handeUpdatedImage))
+
+
+
+  // app.route('/pictureUpload/:id/comments').put(upload.single('update'), PictureController.uploadPicture).get(PictureController.findPictureByIdWithComments)
 }
