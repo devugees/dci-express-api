@@ -1,5 +1,5 @@
 'use strict';
-exports.site = 'http://localhost:8080'
+exports.site = process.env.NODE_ENV === development ? 'http://localhost:8080' : 'https://dci-express-api.herokuapp.com/'
 
 exports.siteName = 'InstaAPI'
 
