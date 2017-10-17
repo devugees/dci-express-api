@@ -1,6 +1,7 @@
 "use strict";
 
-const Category = require('../models/Category');
+var mongoose = require("mongoose"),
+	Category = mongoose.model("Category");
 
 exports.list_all_Categorys = function(req, res) {
 	Category.find({}, function(err, result) {
