@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">= 7.10.0"
+    "node": "8.x.x"
   },
   "bugs": {
     "url": "https://github.com/oliverwebr/dci-express-api/issues"
