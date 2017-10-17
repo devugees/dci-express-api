@@ -4,8 +4,9 @@
   "description": "RESTful API with Node.js (Express 4) and MongoDB.",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "mocha --timeout 25000 --colors"
+    "start": "node app.js",
+    "test": "mocha --timeout 25000 --colors",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
